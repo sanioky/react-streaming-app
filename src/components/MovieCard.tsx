@@ -1,17 +1,28 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { Movie } from "@/types/api";
+import { useWatchHistory } from "@/hooks/useWatchHistory";
+import { memo } from "react";
+import { ProgressBar } from "./ProgressBar";
 
-export const MovieCard = ({
+const MovieCardComponent = ({
   movie,
   onClick,
 }: {
   movie: Movie;
   onClick: () => void;
 }) => {
+  const { history } = useWatchHistory();
+  const watchData = history[movie.id];
+  const progress = watchData?.progress ?? 0;
+
   return (
     <div
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      aria-label={`View details for ${movie.title}`}
       className="relative flex-none w-40 md:w-60 group/card cursor-pointer snap-start transform-gpu"
     >
       <div className="relative aspect-2/3 bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800 group-hover/card:border-zinc-500 transition-all duration-300">
@@ -39,7 +50,14 @@ export const MovieCard = ({
             </div>
           </div>
         </div>
+
+        <ProgressBar
+          progress={progress}
+          className="absolute bottom-0 left-0 rounded-none border-none h-1"
+        />
       </div>
     </div>
   );
 };
+
+export const MovieCard = memo(MovieCardComponent);

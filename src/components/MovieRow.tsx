@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { MovieCard } from "./MovieCard";
 import { MovieModal } from "./MovieModal";
@@ -35,6 +35,10 @@ export const MovieRow = ({ title, movies }: MovieRowProps) => {
     }
   };
 
+  const handleCardClick = useCallback((movie: Movie) => {
+    setSelectedMovie(movie);
+  }, []);
+
   return (
     <section className="relative px-4 md:px-12 py-4 overflow-hidden">
       <h2 className="text-xl font-semibold mb-4 text-zinc-100 tracking-tight px-1">
@@ -62,7 +66,7 @@ export const MovieRow = ({ title, movies }: MovieRowProps) => {
             <MovieCard
               key={movie.id}
               movie={movie}
-              onClick={() => setSelectedMovie(movie)}
+              onClick={() => handleCardClick(movie)}
             />
           ))}
           <div className="flex-none w-4 md:w-12" />

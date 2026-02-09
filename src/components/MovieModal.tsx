@@ -11,6 +11,8 @@ import { X, Star, Play, Plus } from "lucide-react";
 import Image from "next/image";
 import { Fragment } from "react";
 import { Movie } from "@/types/api";
+import { useWatchHistory } from "@/hooks/useWatchHistory";
+import { ProgressBar } from "./ProgressBar";
 
 interface MovieModalProps {
   movie: Movie | null;
@@ -19,7 +21,16 @@ interface MovieModalProps {
 }
 
 export const MovieModal = ({ movie, isOpen, onClose }: MovieModalProps) => {
+  const { history, saveProgress } = useWatchHistory();
+
   if (!movie) return null;
+
+  const progress = history[movie.id]?.progress ?? 0;
+
+  const handleWatchNow = () => {
+    const nextProgress = Math.min(progress + 5, 100);
+    saveProgress(movie.id, nextProgress);
+  };
 
   return (
     <Transition show={isOpen} as={Fragment}>
@@ -98,14 +109,27 @@ export const MovieModal = ({ movie, isOpen, onClose }: MovieModalProps) => {
                       </span>
                     </div>
 
-                    <p className="text-zinc-400 leading-relaxed mb-8 text-sm md:text-base">
-                      {movie.description ||
-                        "In a world where everything is possible, one hero must decide what is right."}
-                    </p>
+                    {movie.description && (
+                      <p className="text-zinc-400 leading-relaxed mb-8 text-sm md:text-base">
+                        {movie.description}
+                      </p>
+                    )}
+
+                    <ProgressBar
+                      progress={progress}
+                      label="Watching Progress"
+                      className="mb-10"
+                    />
 
                     <div className="flex flex-wrap gap-4 mt-auto">
-                      <button className="flex items-center gap-2 px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer">
-                        <Play size={20} fill="black" /> Watch Now
+                      <button
+                        className="flex items-center gap-2 px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer"
+                        onClick={handleWatchNow}
+                      >
+                        <Play size={20} fill="black" />
+                        {history[movie.id]?.progress
+                          ? `Continue (${history[movie.id].progress}%)`
+                          : "Watch Now"}
                       </button>
                       <button className="flex items-center gap-2 px-8 py-3 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors border border-zinc-700 cursor-pointer">
                         <Plus size={20} /> My List

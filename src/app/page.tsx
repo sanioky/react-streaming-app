@@ -3,6 +3,7 @@ import { MovieRow } from "@/components/MovieRow";
 import { MovieRowSkeleton } from "@/components/MovieRowSkeleton";
 import moviesResponse from "@/data/movies.json";
 import { Hero } from "@/components/Hero";
+import { Footer } from "@/components/Footer";
 
 // Simulate API request with artificial delay to demonstrate loading state
 async function getTrendingMovies() {
@@ -20,14 +21,17 @@ export default function Home() {
   const heroMovie = trendingMovies[0];
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white">
-      <Hero movie={heroMovie} />
+    <main className="min-h-screen flex flex-col bg-zinc-950 text-white">
+      <div className="flex-1">
+        <Hero movie={heroMovie} />
 
-      <div className="relative z-20 py-10">
-        <Suspense fallback={<MovieRowSkeleton title="Trending Now" />}>
-          <TrendingRow />
-        </Suspense>
+        <div className="relative z-20 py-10">
+          <Suspense fallback={<MovieRowSkeleton title="Trending Now" />}>
+            <TrendingRow />
+          </Suspense>
+        </div>
       </div>
+      <Footer />
     </main>
   );
 }

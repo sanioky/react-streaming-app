@@ -14,7 +14,7 @@ export const Hero = ({ movie }: HeroProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="relative w-full h-[80vh] lg:h-[60vh] flex items-center justify-start overflow-hidden bg-zinc-950">
+    <section className="relative w-full h-[70vh] min-h-100 lg:h-[50vh] flex items-center justify-start overflow-hidden bg-zinc-950">
       <div className="absolute inset-0 z-0">
         <Image
           src={movie.thumbnail}
