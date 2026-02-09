@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore, useCallback } from "react";
 
-const WATCH_HISTORY_KEY = "watch_history";
+export const WATCH_HISTORY_KEY = "watch_history";
 type WatchHistoryMap = Record<number, { progress: number }>;
 
 const getSnapshot = () => localStorage.getItem(WATCH_HISTORY_KEY);
