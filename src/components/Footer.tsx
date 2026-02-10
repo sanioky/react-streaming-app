@@ -9,7 +9,7 @@ export const Footer = () => {
         <div className="flex items-center gap-6">
           <Link
             href="/"
-            className="text-red-600 text-xl font-black tracking-tighter uppercase transition-transform hover:scale-105"
+            className="text-red-600 text-xl font-black tracking-tighter uppercase link-hover"
             aria-label="STREAMING Home"
           >
             S
@@ -22,26 +22,17 @@ export const Footer = () => {
         <nav>
           <ul className="flex flex-wrap justify-center gap-4 md:gap-8 text-zinc-500 text-xs md:text-sm">
             <li>
-              <Link
-                href="/"
-                className="hover:text-zinc-300 transition-colors whitespace-nowrap"
-              >
+              <Link href="/" className="hover:text-zinc-300 whitespace-nowrap">
                 Help Center
               </Link>
             </li>
             <li>
-              <Link
-                href="/"
-                className="hover:text-zinc-300 transition-colors whitespace-nowrap"
-              >
+              <Link href="/" className="hover:text-zinc-300 whitespace-nowrap">
                 Privacy
               </Link>
             </li>
             <li>
-              <Link
-                href="/"
-                className="hover:text-zinc-300 transition-colors whitespace-nowrap"
-              >
+              <Link href="/" className="hover:text-zinc-300 whitespace-nowrap">
                 Contact Us
               </Link>
             </li>

@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { MovieCard } from "./MovieCard";
 import { MovieModal } from "./MovieModal";
 import { Movie } from "@/types/api";
+import { useWatchHistory } from "@/hooks/useWatchHistory";
 
 interface MovieRowProps {
   title: string;
@@ -12,6 +13,7 @@ interface MovieRowProps {
 }
 
 export const MovieRow = ({ title, movies }: MovieRowProps) => {
+  const { history } = useWatchHistory();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
@@ -21,7 +23,7 @@ export const MovieRow = ({ title, movies }: MovieRowProps) => {
     const onWheel = (e: WheelEvent) => {
       if (e.deltaY === 0) return;
       e.preventDefault();
-      el.scrollTo({ left: el.scrollLeft + e.deltaY * 3, behavior: "auto" });
+      el.scrollTo({ left: el.scrollLeft + e.deltaY * 2, behavior: "auto" });
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
@@ -40,7 +42,7 @@ export const MovieRow = ({ title, movies }: MovieRowProps) => {
   }, []);
 
   return (
-    <section className="relative px-4 md:px-12 py-4 overflow-hidden">
+    <section className="relative px-4 md:px-12 py-4">
       <h2 className="text-xl font-semibold mb-4 text-zinc-100 tracking-tight px-1">
         {title}
       </h2>
@@ -67,6 +69,7 @@ export const MovieRow = ({ title, movies }: MovieRowProps) => {
               key={movie.id}
               movie={movie}
               onClick={() => handleCardClick(movie)}
+              progress={history[movie.id]?.progress ?? 0}
             />
           ))}
           <div className="flex-none w-4 md:w-12" />

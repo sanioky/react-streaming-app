@@ -48,4 +48,18 @@ describe("useWatchHistory hook", () => {
     expect(storedData["1"].progress).toBe(30);
     expect(storedData["2"].progress).toBe(80);
   });
+
+  it("should clamp progress between 0 and 100", () => {
+    const { result } = renderHook(() => useWatchHistory());
+
+    act(() => {
+      result.current.saveProgress(1, 150);
+    });
+    expect(result.current.history[1].progress).toBe(100);
+
+    act(() => {
+      result.current.saveProgress(1, -50);
+    });
+    expect(result.current.history[1].progress).toBe(0);
+  });
 });

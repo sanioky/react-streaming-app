@@ -1,21 +1,16 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { Movie } from "@/types/api";
-import { useWatchHistory } from "@/hooks/useWatchHistory";
 import { memo } from "react";
 import { ProgressBar } from "./ProgressBar";
 
-const MovieCardComponent = ({
-  movie,
-  onClick,
-}: {
+interface MovieCardProps {
   movie: Movie;
   onClick: () => void;
-}) => {
-  const { history } = useWatchHistory();
-  const watchData = history[movie.id];
-  const progress = watchData?.progress ?? 0;
+  progress: number;
+}
 
+const MovieCardComponent = ({ movie, onClick, progress }: MovieCardProps) => {
   return (
     <div
       onClick={onClick}
@@ -35,7 +30,7 @@ const MovieCardComponent = ({
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 p-3">
-          <p className="text-white font-semibold text-sm md:text-base leading-tight truncate group-hover/card:text-yellow-400 transition-colors">
+          <p className="text-white font-semibold text-sm md:text-base truncate group-hover/card:text-yellow-400 transition-colors">
             {movie.title}
           </p>
           <div className="flex items-center gap-2 mt-1 opacity-80 group-hover/card:opacity-100 transition-opacity">

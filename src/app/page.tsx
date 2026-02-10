@@ -1,9 +1,11 @@
 import { Suspense } from "react";
 import { MovieRow } from "@/components/MovieRow";
 import { MovieRowSkeleton } from "@/components/MovieRowSkeleton";
-import moviesResponse from "@/data/movies.json";
+import rawMoviesData from "@/data/movies.json";
 import { Hero } from "@/components/Hero";
-import { Footer } from "@/components/Footer";
+import { ApiResponse } from "@/types/api";
+
+const moviesResponse = rawMoviesData as ApiResponse;
 
 // Simulate API request with artificial delay to demonstrate loading state
 async function getTrendingMovies() {
@@ -17,21 +19,18 @@ async function TrendingRow() {
 }
 
 export default function Home() {
-  const trendingMovies = moviesResponse.categories.trending;
-  const heroMovie = trendingMovies[0];
+  const { trending } = moviesResponse.categories;
+  const heroMovie = trending?.[0];
 
   return (
-    <main className="min-h-screen flex flex-col bg-zinc-950 text-white">
-      <div className="flex-1">
-        <Hero movie={heroMovie} />
+    <>
+      {heroMovie && <Hero movie={heroMovie} />}
 
-        <div className="relative z-20 py-10">
-          <Suspense fallback={<MovieRowSkeleton title="Trending Now" />}>
-            <TrendingRow />
-          </Suspense>
-        </div>
+      <div className="relative z-20 py-10">
+        <Suspense fallback={<MovieRowSkeleton title="Trending Now" />}>
+          <TrendingRow />
+        </Suspense>
       </div>
-      <Footer />
-    </main>
+    </>
   );
 }

@@ -42,4 +42,15 @@ describe("MovieModal Component", () => {
 
     expect(mockSaveProgress).toHaveBeenCalledWith(mockMovie.id, 15);
   });
+
+  it("should call onClose when Esc key is pressed", () => {
+    const mockOnClose = vi.fn();
+    render(
+      <MovieModal movie={mockMovie} isOpen={true} onClose={mockOnClose} />,
+    );
+
+    fireEvent.keyDown(window, { key: "Escape", code: "Escape" });
+
+    expect(mockOnClose).toHaveBeenCalled();
+  });
 });

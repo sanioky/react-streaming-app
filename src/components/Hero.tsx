@@ -14,8 +14,8 @@ export const Hero = ({ movie }: HeroProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="relative w-full h-[70vh] min-h-100 lg:h-[50vh] flex items-center justify-start overflow-hidden bg-zinc-950">
-      <div className="absolute inset-0 z-0">
+    <section className="relative w-full h-[70vh] min-h-100 lg:h-[50vh] flex items-center justify-start overflow-hidden">
+      <div className="absolute inset-0">
         <Image
           src={movie.thumbnail}
           alt={movie.title}
@@ -39,10 +39,7 @@ export const Hero = ({ movie }: HeroProps) => {
         </p>
 
         <div className="flex items-center gap-3">
-          <button
-            aria-label={`Play ${movie.title}`}
-            className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-3 bg-white text-black font-bold rounded hover:bg-zinc-200 transition-colors cursor-pointer"
-          >
+          <button aria-label={`Play ${movie.title}`} className="btn-primary">
             <Play size={24} fill="black" />
             Play
           </button>
@@ -50,7 +47,7 @@ export const Hero = ({ movie }: HeroProps) => {
           <button
             onClick={() => setIsModalOpen(true)}
             aria-label="More information"
-            className="flex items-center gap-2 px-6 md:px-8 py-2 md:py-3 bg-zinc-500/50 text-white font-bold rounded hover:bg-zinc-500/70 transition-colors backdrop-blur-md cursor-pointer"
+            className="btn-secondary"
           >
             <Info size={24} />
             More Info

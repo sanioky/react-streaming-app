@@ -21,7 +21,7 @@ export const ProgressBar = ({
           <span className="text-red-600">{progress}%</span>
         </div>
       )}
-      <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden border border-white/5 relative">
+      <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden border border-white/5">
         <div
           className={cn(
             "h-full bg-red-600 transition-all ease-out",

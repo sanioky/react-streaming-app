@@ -58,13 +58,13 @@ export const MovieModal = ({ movie, isOpen, onClose }: MovieModalProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="relative w-full max-w-4xl transform overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 text-left align-middle shadow-2xl transition-all">
+              <DialogPanel className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 text-left shadow-2xl transition-all">
                 <button
                   onClick={onClose}
                   aria-label="Close modal"
-                  className="absolute right-4 top-4 z-10 p-2 bg-black/50 hover:bg-black/80 rounded-full text-white transition-colors cursor-pointer"
+                  className="absolute right-4 top-4 z-20 p-2 bg-black/60 hover:bg-black/80 rounded-full text-white backdrop-blur-md transition-all cursor-pointer border border-white/10"
                 >
-                  <X size={20} className="" />
+                  <X size={20} />
                 </button>
 
                 <div className="flex flex-col md:flex-row">
@@ -122,16 +122,13 @@ export const MovieModal = ({ movie, isOpen, onClose }: MovieModalProps) => {
                     />
 
                     <div className="flex flex-wrap gap-4 mt-auto">
-                      <button
-                        className="flex items-center gap-2 px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer"
-                        onClick={handleWatchNow}
-                      >
+                      <button className="btn-primary" onClick={handleWatchNow}>
                         <Play size={20} fill="black" />
                         {history[movie.id]?.progress
                           ? `Continue (${history[movie.id].progress}%)`
                           : "Watch Now"}
                       </button>
-                      <button className="flex items-center gap-2 px-8 py-3 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors border border-zinc-700 cursor-pointer">
+                      <button className="btn-secondary">
                         <Plus size={20} /> My List
                       </button>
                     </div>
